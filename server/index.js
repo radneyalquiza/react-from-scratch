@@ -39,6 +39,8 @@ app.set('port', port);
  */
 const server = http.createServer(app);
 let availablePort = port;
+
+console.log(process.env.APP_NAME); // 'dolphin'
 /**
  * Listen on provided port, on all network interfaces.
  */

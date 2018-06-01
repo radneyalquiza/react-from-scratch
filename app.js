@@ -3,13 +3,17 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import webpackDevServer from './webpack/dev-server';
 import router from './routes';
 
 const app = express();
 
 app.set('views', path.join(__dirname, './views'));
-app.set(express.static(path.join(__dirname, './public')));
 app.set('view engine', 'pug');
+
+if (process.env.NODE_ENV !== 'production') {
+  webpackDevServer(app);
+}
 
 app.use(logger('combined'));
 
@@ -18,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 
+app.use(express.static(path.join(__dirname, './public')));
 app.use('/', router);
 
 // catch 404 and forward to an error handler (below)
