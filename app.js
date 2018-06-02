@@ -3,8 +3,14 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+
 import webpackDevServer from './webpack/dev-server';
 import router from './routes';
+
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.load();
+}
 
 const app = express();
 
